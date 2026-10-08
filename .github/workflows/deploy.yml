@@ -25,6 +25,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 首次运行时自动启用 GitHub Pages(Actions 构建模式)
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - name: Install, build (with pnpm)
         uses: withastro/action@v3
         with:
