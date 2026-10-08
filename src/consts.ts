@@ -5,3 +5,5 @@ export const SITE_DESCRIPTION = '项目构建日志与技术分享';
 export const SITE_AUTHOR = 'marsbuildlog';
 // GitHub 主页链接(Header 右上角的图标指向这里)
 export const GITHUB_URL = 'https://github.com/marsbuildlog';
+// X(Twitter)主页链接
+export const TWITTER_URL = 'https://x.com/marsbuildlog';

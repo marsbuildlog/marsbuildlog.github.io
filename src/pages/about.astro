@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { GITHUB_URL, SITE_TITLE } from '../consts';
+import { GITHUB_URL, SITE_TITLE, TWITTER_URL } from '../consts';
 ---
 
 <!doctype html>
@@ -38,7 +38,9 @@ import { GITHUB_URL, SITE_TITLE } from '../consts';
 				<p>
 					如果你对内容感兴趣,欢迎在
 					<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
-				 上关注我,或通过 <a href="/rss.xml">RSS</a> 订阅更新。
+				 上关注我,在
+					<a href={TWITTER_URL} target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+				 上和我交流,或通过 <a href="/rss.xml">RSS</a> 订阅更新。
 				</p>
 			</article>
 		</main>
