@@ -1,0 +1,92 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// 按年份分组
+const postsByYear = new Map<number, typeof posts>();
+for (const post of posts) {
+	const year = post.data.pubDate.getFullYear();
+	if (!postsByYear.has(year)) postsByYear.set(year, []);
+	postsByYear.get(year)!.push(post);
+}
+const years = [...postsByYear.keys()].sort((a, b) => b - a);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`归档 - ${SITE_TITLE}`} description={`全部文章归档 - ${SITE_DESCRIPTION}`} />
+		<style>
+			main {
+				width: 720px;
+			}
+			h1 {
+				margin-bottom: 0.5rem;
+			}
+			.total {
+				color: rgb(var(--gray));
+				margin-top: 0;
+			}
+			h2 {
+				margin: 2rem 0 1rem;
+				color: rgb(var(--accent));
+				font-size: 1.4rem;
+			}
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				display: flex;
+				align-items: baseline;
+				gap: 1rem;
+				padding: 0.4rem 0;
+			}
+			time {
+				color: rgb(var(--gray));
+				font-variant-numeric: tabular-nums;
+				flex-shrink: 0;
+			}
+			li a {
+				color: rgb(var(--black));
+				text-decoration: none;
+			}
+			li a:hover {
+				color: rgb(var(--accent));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>归档</h1>
+			<p class="total">共 {posts.length} 篇文章</p>
+			{
+				years.map((year) => (
+					<section>
+						<h2>{year}</h2>
+						<ul>
+							{postsByYear.get(year)!.map((post) => (
+								<li>
+									<time datetime={post.data.pubDate.toISOString()}>
+										{post.data.pubDate.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}
+									</time>
+									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				))
+			}
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import Tags from '../../components/Tags.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	// 收集所有标签,为每个标签生成一个列表页
+	const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+	return tags.map((tag) => ({
+		params: { tag },
+		props: {
+			posts: posts
+				.filter((post) => post.data.tags.includes(tag))
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`#${tag} 下的文章 - ${SITE_TITLE}`} description={`标签 #${tag} 下的所有文章 - ${SITE_DESCRIPTION}`} />
+		<style>
+			main {
+				width: 720px;
+			}
+			h1 {
+				margin-bottom: 2rem;
+			}
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				margin-bottom: 1.5rem;
+			}
+			li a {
+				display: block;
+				text-decoration: none;
+			}
+			.title {
+				color: rgb(var(--black));
+				font-size: 1.2rem;
+			}
+			li a:hover .title {
+				color: rgb(var(--accent));
+			}
+			.date {
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+				margin: 0.2rem 0 0.4rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>#{tag} 下的文章({posts.length})</h1>
+			<ul>
+				{
+					posts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`}>
+								<div class="title">{post.data.title}</div>
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+								<Tags tags={post.data.tags} />
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

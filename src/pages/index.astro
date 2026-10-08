@@ -1,0 +1,99 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import Tags from '../components/Tags.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const latestPosts = posts.slice(0, 5);
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 720px;
+			}
+			.intro {
+				margin-bottom: 3rem;
+			}
+			h2 {
+				color: rgb(var(--accent));
+				font-size: 1.4rem;
+			}
+			ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			li {
+				margin-bottom: 1.5rem;
+			}
+			li a {
+				display: block;
+				text-decoration: none;
+			}
+			.title {
+				color: rgb(var(--black));
+				font-size: 1.2rem;
+			}
+			li a:hover .title {
+				color: rgb(var(--accent));
+			}
+			.date {
+				color: rgb(var(--gray));
+				font-size: 0.9rem;
+				margin: 0.2rem 0 0.4rem;
+			}
+			.more {
+				display: inline-block;
+				margin-top: 1rem;
+				color: rgb(var(--accent));
+				text-decoration: none;
+			}
+			.more:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="intro">
+				<h1>{SITE_TITLE}</h1>
+				<p>{SITE_DESCRIPTION}。记录项目从 0 到 1 的构建过程,以及踩坑与解决思路。</p>
+			</section>
+			<section>
+				<h2>最新文章</h2>
+				<ul>
+					{
+						latestPosts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>
+									{post.data.heroImage && (
+										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+									)}
+									<div class="title">{post.data.title}</div>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+									<Tags tags={post.data.tags} />
+								</a>
+							</li>
+						))
+					}
+				</ul>
+				<a class="more" href="/blog">查看全部文章 →</a>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
