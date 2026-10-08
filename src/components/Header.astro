@@ -6,7 +6,10 @@ import HeaderLink from './HeaderLink.astro';
 <header>
 	<nav>
 		<h2>
-			<a href="/">{SITE_TITLE}</a>
+			<a href="/" class="brand">
+				<img src="/avatar.png" alt="" width="28" height="28" class="logo" />
+				{SITE_TITLE}
+			</a>
 		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">首页</HeaderLink>
@@ -43,6 +46,15 @@ import HeaderLink from './HeaderLink.astro';
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+	}
+	h2 a.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+	.logo {
+		border-radius: 50%;
+		vertical-align: middle;
 	}
 	nav {
 		display: flex;
