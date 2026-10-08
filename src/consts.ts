@@ -1,6 +1,6 @@
 // 站点全局配置。所有页面都可以从这里 import。
 
-export const SITE_TITLE = 'Mars Build Log';
+export const SITE_TITLE = 'MarsBuildLog';
 export const SITE_DESCRIPTION =
 	'前腾讯开发 / 前独角兽技术总监的 VibeCoding 之路:用 AI Coding 构建面向全球用户的工具和 SaaS,记录产品与技术开发经验';
 export const SITE_AUTHOR = 'marsbuildlog';

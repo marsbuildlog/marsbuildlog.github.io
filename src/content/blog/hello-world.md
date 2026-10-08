@@ -5,7 +5,7 @@ pubDate: 2026-10-08
 tags: ['astro', 'github-pages', '建站']
 ---
 
-欢迎来到 Mars Build Log 👋
+欢迎来到 MarsBuildLog 👋
 
 这是本站的第一篇文章,记录这个博客是如何搭建的,以及后续如何发布新文章。
 
