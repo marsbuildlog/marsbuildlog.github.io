@@ -25,6 +25,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Astro 7 要求 Node >= 22.12
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
       # 首次运行时自动启用 GitHub Pages(Actions 构建模式)
       - name: Configure Pages
         uses: actions/configure-pages@v5
