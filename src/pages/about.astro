@@ -16,6 +16,13 @@ import { GITHUB_URL, SITE_TITLE, TWITTER_URL } from '../consts';
 			.prose {
 				line-height: 1.8;
 			}
+			.bio {
+				font-size: 1.05rem;
+				line-height: 1.9;
+			}
+			.bio strong {
+				color: rgb(var(--accent));
+			}
 			.prose a {
 				color: rgb(var(--accent));
 			}
@@ -26,8 +33,12 @@ import { GITHUB_URL, SITE_TITLE, TWITTER_URL } from '../consts';
 		<main>
 			<article class="prose">
 				<h1>关于</h1>
-				<p>
-					这里是 <strong>Mars Build Log</strong>,一个记录项目构建过程和技术实践的个人博客。
+				<p class="bio">
+					这里是 <strong>Mars Build Log</strong> 👨‍🚀
+				</p>
+				<p class="bio">
+					前腾讯开发(3年) / 前独角兽公司技术总监(10年) / 现VibeCoding全栈开发。用
+					AI Coding 构建面向全球用户的工具和 SaaS,记录产品与技术开发经验。
 				</p>
 				<p>内容主要涵盖:</p>
 				<ul>
