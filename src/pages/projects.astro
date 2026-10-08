@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { projects } from '../data/projects';
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`作品 - ${SITE_TITLE}`} description={`我做的网站 - ${SITE_DESCRIPTION}`} />
+		<style>
+			.intro {
+				color: rgb(var(--gray));
+				margin-bottom: 2em;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.5rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				width: calc(50% - 0.75rem);
+			}
+			@media (max-width: 720px) {
+				ul li {
+					width: 100%;
+				}
+			}
+			.card {
+				display: block;
+				text-decoration: none;
+				color: inherit;
+			}
+			.card img {
+				width: 100%;
+				margin-bottom: 0.75rem;
+				border-radius: 12px;
+				transition: 0.2s ease;
+			}
+			.card:hover img {
+				box-shadow: var(--box-shadow);
+			}
+			.card h2 {
+				margin: 0 0 0.25em 0;
+				font-size: 1.25em;
+				transition: 0.2s ease;
+			}
+			.card:hover h2 {
+				color: var(--accent);
+			}
+			.card .desc {
+				margin: 0 0 0.5em 0;
+				font-size: 0.9em;
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4em;
+			}
+			.tag {
+				font-size: 0.75em;
+				padding: 0.15em 0.6em;
+				background: rgb(var(--gray-light));
+				border-radius: 999px;
+				color: rgb(var(--gray-dark));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<p class="intro">
+					我亲手做的一些网站和工具,大多是 VibeCoding 的产物 🛠️
+				</p>
+				<ul>
+					{projects.map((project) => (
+						<li>
+							<a class="card" href={project.url} target="_blank" rel="noopener noreferrer">
+								{project.image && (
+									<Image width={720} height={360} src={project.image} alt={`${project.name} 截图`} />
+								)}
+								<h2>{project.name} ↗</h2>
+								<p class="desc">{project.description}</p>
+								<div class="tags">
+									{project.tags.map((tag) => (
+										<span class="tag">{tag}</span>
+									))}
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

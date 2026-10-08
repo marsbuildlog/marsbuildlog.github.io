@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { uses, type UseItem } from '../data/uses';
+
+// 按分类分组,未分类的归入「其他」
+const UNCATEGORIZED = '其他';
+const groups = new Map<string, UseItem[]>();
+for (const item of uses) {
+	const key = item.category ?? UNCATEGORIZED;
+	if (!groups.has(key)) groups.set(key, []);
+	groups.get(key)!.push(item);
+}
+// 只有一个分组且未分类时,不显示分组标题
+const showGroupTitle = !(groups.size === 1 && groups.has(UNCATEGORIZED));
+---
+
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<BaseHead title={`推荐 - ${SITE_TITLE}`} description={`我常用的工具与服务 - ${SITE_DESCRIPTION}`} />
+		<style>
+			.disclosure {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				background: rgb(var(--gray-light));
+				border-radius: 8px;
+				padding: 0.75em 1em;
+				margin-bottom: 2em;
+			}
+			.empty {
+				color: rgb(var(--gray));
+				font-style: italic;
+			}
+			h2 {
+				margin-top: 2em;
+			}
+			ul {
+				display: flex;
+				flex-direction: column;
+				gap: 1.25rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			.card {
+				display: flex;
+				gap: 1rem;
+				align-items: flex-start;
+				padding: 1.25rem;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				text-decoration: none;
+				color: inherit;
+				transition: 0.2s ease;
+			}
+			.card:hover {
+				box-shadow: var(--box-shadow);
+			}
+			.card:hover h3 {
+				color: var(--accent);
+			}
+			.card img {
+				width: 96px;
+				height: 96px;
+				object-fit: cover;
+				border-radius: 8px;
+				flex-shrink: 0;
+			}
+			.card h3 {
+				margin: 0 0 0.3em 0;
+				font-size: 1.1em;
+				transition: 0.2s ease;
+			}
+			.card .desc {
+				margin: 0 0 0.5em 0;
+				font-size: 0.9em;
+				line-height: 1.6;
+				color: rgb(var(--gray-dark));
+			}
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4em;
+			}
+			.tag {
+				font-size: 0.72em;
+				padding: 0.15em 0.6em;
+				background: rgb(var(--gray-light));
+				border-radius: 999px;
+				color: rgb(var(--gray-dark));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<p class="disclosure">
+					ℹ️ 本页包含推广链接(affiliate links),通过它们购买/注册可能为我带来少量佣金,不会增加你的成本,也不影响我的推荐结论。
+				</p>
+				{uses.length === 0 && <p class="empty">内容整理中,敬请期待……</p>}
+				{[...groups.entries()].map(([category, items]) => (
+					<>
+						{showGroupTitle && <h2>{category}</h2>}
+						<ul>
+							{items.map((item) => (
+								<li>
+									<a class="card" href={item.url} target="_blank" rel="noopener noreferrer sponsored">
+										{item.image && <Image width={96} height={96} src={item.image} alt={`${item.name} 图标`} />}
+										<div>
+											<h3>{item.name} ↗</h3>
+											<p class="desc">{item.description}</p>
+											{item.tags && item.tags.length > 0 && (
+												<div class="tags">
+													{item.tags.map((tag) => (
+														<span class="tag">{tag}</span>
+													))}
+												</div>
+											)}
+										</div>
+									</a>
+								</li>
+							))}
+						</ul>
+					</>
+				))}
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
