@@ -22,7 +22,10 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				margin: 0;
 			}
 			.hero-image {
-				width: 100%;
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: 0 auto;
+				padding: 1em;
 			}
 			.hero-image img {
 				display: block;
@@ -40,11 +43,11 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 			.title {
 				margin-bottom: 1em;
 				padding: 1em 0;
-				text-align: center;
 				line-height: 1;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				font-size: 2.441em;
 			}
 			.date {
 				margin-bottom: 0.5em;
