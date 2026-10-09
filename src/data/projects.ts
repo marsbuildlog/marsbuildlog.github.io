@@ -3,6 +3,8 @@
 import type { ImageMetadata } from 'astro';
 import sheetdoCover from '../assets/sheetdo-formula-grader-cover.png';
 
+
+
 export interface Project {
 	/** 站点名称 */
 	name: string;
@@ -17,6 +19,14 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+	{
+		name: 'XFollowBack',
+		url: 'https://github.com/marsbuildlog/x-follow-back',
+		description:
+			'X (Twitter) 蓝V认证粉丝自动回关的 Chrome / Edge 插件:自动回关认证粉丝,内置限流退避与单日上限保护,替代手动一个个点「回关」。',
+		tags: ['chrome-extension', 'x', 'automation'],
+        image: "https://github.com/marsbuildlog/x-follow-back/blob/main/og-image.png?raw=true"
+	},
 	{
 		name: 'SheetDo',
 		url: 'https://sheetdo.com',
