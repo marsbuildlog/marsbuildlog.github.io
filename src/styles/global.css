@@ -106,8 +106,9 @@ pre > code {
 blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
-	margin: 0;
-	font-size: 1.333em;
+	margin: 0 0 1em 0;
+	font-size: 1em;
+	color: rgb(var(--gray));
 }
 hr {
 	border: none;

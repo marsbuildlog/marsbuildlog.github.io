@@ -43,13 +43,13 @@ const tags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]);
 				gap: 0.4rem;
 				padding: 0.3rem 1rem;
 				border-radius: 999px;
-				background: rgba(var(--accent), 10%);
-				color: rgb(var(--accent));
+				background: color-mix(in srgb, var(--accent) 10%, transparent);
+				color: var(--accent);
 				text-decoration: none;
 				font-size: 1rem;
 			}
 			ul a:hover {
-				background: rgba(var(--accent), 20%);
+				background: color-mix(in srgb, var(--accent) 20%, transparent);
 			}
 			.count {
 				font-size: 0.8rem;

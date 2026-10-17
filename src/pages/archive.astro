@@ -48,7 +48,15 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 				display: flex;
 				align-items: baseline;
 				gap: 1rem;
-				padding: 0.4rem 0;
+				padding: 0.5rem 1rem;
+				margin-bottom: 0.5rem;
+				background: #fff;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 8px;
+				transition: border-color 0.15s ease;
+			}
+			li:hover {
+				border-color: rgb(var(--gray));
 			}
 			time {
 				color: rgb(var(--gray));
@@ -58,6 +66,7 @@ const years = [...postsByYear.keys()].sort((a, b) => b - a);
 			li a {
 				color: rgb(var(--black));
 				text-decoration: none;
+				transition: color 0.15s ease;
 			}
 			li a:hover {
 				color: rgb(var(--accent));

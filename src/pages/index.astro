@@ -35,17 +35,39 @@ const latestPosts = posts.slice(0, 5);
 				padding: 0;
 			}
 			li {
+				position: relative;
 				margin-bottom: 1.5rem;
+				padding: 1.25rem;
+				background: #fff;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 12px;
+				transition:
+					border-color 0.15s ease,
+					box-shadow 0.15s ease;
+			}
+			li:hover {
+				border-color: rgb(var(--gray));
+				box-shadow: 0 2px 12px rgba(var(--gray), 15%);
 			}
 			li a {
 				display: block;
 				text-decoration: none;
 			}
+			li > a::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				border-radius: inherit;
+			}
+			li :global(ul.tags) {
+				position: relative;
+			}
 			.title {
 				color: rgb(var(--black));
 				font-size: 1.2rem;
+				transition: color 0.15s ease;
 			}
-			li a:hover .title {
+			li:hover .title {
 				color: rgb(var(--accent));
 			}
 			.date {
@@ -88,8 +110,8 @@ const latestPosts = posts.slice(0, 5);
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
-									<Tags tags={post.data.tags} />
 								</a>
+								<Tags tags={post.data.tags} />
 							</li>
 						))
 					}
